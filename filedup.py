@@ -3,7 +3,7 @@ import sys
 
 def ReadFileList(fina):
 
-	fi = csv.reader(open(fina, "rt"))
+	fi = csv.reader(open(fina, "rt", encoding='utf-8'))
 	hashDict = {}
 
 	for li in fi:
