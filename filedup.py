@@ -7,7 +7,7 @@ def ReadFileList(fina):
 	hashDict = {}
 
 	for li in fi:
-
+		if len(li) < 5: continue
 		pth = li[0]
 		fn = li[1]
 		si = int(li[2])
@@ -44,10 +44,15 @@ if __name__=="__main__":
 		inpFileDataList.append(ReadFileList(inpFile))
 	inpFileData = MergeHashDicts(*inpFileDataList)
 
+	out = csv.writer(open("dups.csv", "wt", encoding='utf-8'))
+
 	for existingHash, existingData in existingFileData.items():
 		
 		if existingHash in inpFileData:
 			print (existingData, "exists", inpFileData[existingHash][0])
+			out.writerow((existingData[0][0], existingData[0][1], "exists", *inpFileData[existingHash][0]))
 		else:
 			print (existingData, "not found")
-
+			out.writerow((existingData[0][0], existingData[0][1], "not found"))
+		
+	del out
